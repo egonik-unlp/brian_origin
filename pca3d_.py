@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Sat Sep 25 20:11:33 2021
@@ -44,7 +44,7 @@ colori={key:colori_[ffiles[key]] for key in ffiles.keys() }
 scaler=StandardScaler()
 X=scaler.fit_transform(data_for_pca)
 
-pca=PCA(n_components=5)
+pca=PCA(n_components=3)
 low_dim=pca.fit_transform(X)
 dict_for_coef={}
 if pca.n_components<=3:
@@ -52,7 +52,7 @@ if pca.n_components<=3:
     for i,(name,treat) in enumerate(zip(names_for_pca,low_dim)):
         ax.scatter(*treat, label=ffiles[name], color=colori[name])
         dict_for_coef[name]=treat
-    ax.set_title('Representacion de los datos para {} PC'.format(pca.n_components))
+    plt.title('Representacion de los datos para {} PC'.format(pca.n_components))
     humberto = plt.gca().get_legend_handles_labels()[1][:len(set(ffiles.values()))]
     ax.set_xlabel('PC1')
     ax.set_ylabel('PC2')
@@ -76,7 +76,7 @@ for i in range(pca.n_components):
     ax[i + 1].contourf(xx,yy, pca.components_[i].reshape(shapes[0][2]))
     ax[i + 1].set_title("PC{}, varianza explicada {:.2f} % ".format(i+1, pca.explained_variance_ratio_[i]*100 ))
 
-
+plt.suptitle('Representacion gráfica de todos los componentes, {:.2f} % de varianza total explicada'.format(sum(pca.explained_variance_ratio_*100)))
 plt.show()
 
 
