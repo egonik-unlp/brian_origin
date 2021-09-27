@@ -101,9 +101,9 @@ labels=["PC{}".format(i + 1) for i in range(pca.n_components)]
 x=np.arange(len(labels))
 for key,val in data.items():
     if len(val)==1:
-        plt.bar(x, val[0], width=width, label=key, color=colori_[key])
+        plt.bar(x, val[0], width=width, label=key, color=colori_[key], alpha=.7)
     else:
-        plt.bar(x, height=val[-1] - val[0] ,width=width, label=key, color=colori_[key])
+        plt.bar(x, height=val[-1] - val[0] ,width=width, label=key, color=colori_[key], alpha=.7)
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 plt.axhline(0, color='black', linewidth=2)
@@ -111,5 +111,14 @@ plt.legend()
 plt.show()
 
 
-    
      
+
+for key, values in data.items():
+    fig,ax = plt.subplots(1,1, figsize=(30,15))  
+    for i,value in enumerate(values):
+        plt.bar(x, value, width, label='dia {}'.format(i), alpha=.7)
+        plt.title(key)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    plt.legend()
+    plt.show()
